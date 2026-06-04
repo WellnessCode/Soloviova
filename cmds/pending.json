@@ -1,1 +1,1 @@
-{"id":"init","cmd":"echo ready"}
+{"id":"test001","cmd":"echo 'Git Relay Soloviova працює!' && date"}
