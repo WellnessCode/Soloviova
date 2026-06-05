@@ -1,1 +1,1 @@
-{"id":"check_progress_001","cmd":"cat /tmp/zarано_result.txt 2>/dev/null || echo 'файл ще не створено'; echo '---'; ps aux | grep find_bg | grep -v grep"}
+{"id":"check_bot_001","cmd":"echo '=== Лог бота ===' && ls -la /root/my-bot/*.log /root/my-bot/logs/ 2>/dev/null; echo '=== Grep зарано в логах ===' && grep -r 'зарано' /root/my-bot/ 2>/dev/null | head -20; echo '=== Перевіряємо agent_bot.py ===' && grep -n 'зарано\\|консультацію\\|чек-лист\\|checklist' /root/my-bot/agent_bot.py 2>/dev/null | head -20"}
