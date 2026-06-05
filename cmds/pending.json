@@ -1,1 +1,1 @@
-{"id":"status_001","cmd":"ps aux | grep send_messages | grep -v grep; echo '---LOG2---'; tail -30 /root/my-bot/send_log2.txt 2>/dev/null || echo 'log2 not found'; echo '---LOG1---'; tail -10 /root/my-bot/send_log.txt 2>/dev/null || echo 'log1 not found'"}
+{"id":"kill_old_001","cmd":"date; kill 1326145 2>/dev/null && echo 'OLD PROCESS KILLED' || echo 'Process not found (already done)'; sleep 2; ps aux | grep send_messages | grep -v grep | head -5"}
