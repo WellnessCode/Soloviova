@@ -1,1 +1,1 @@
-{"id":"run_venv_001","cmd":"cd /root/soloviova && nohup /root/my-bot/venv/bin/python3 send_messages.py > /root/my-bot/send_log2.txt 2>&1 & echo \"PID: $!\""}
+{"id":"check_log2_002","cmd":"sleep 8 && tail -20 /root/my-bot/send_log2.txt"}
