@@ -1,1 +1,1 @@
-{"id":"kill_old_001","cmd":"date; kill 1326145 2>/dev/null && echo 'OLD PROCESS KILLED' || echo 'Process not found (already done)'; sleep 2; ps aux | grep send_messages | grep -v grep | head -5"}
+{"id":"schedule_broadcast_001","cmd":"nohup bash -c 'sleep 1830 && cd /home/user/Soloviova && git pull -q origin main && /root/my-bot/venv/bin/python3 send_messages.py >> /root/my-bot/send_log2.txt 2>&1' > /dev/null 2>&1 & echo \"SCHEDULED PID: $!\"; echo 'Broadcast starts at ~17:15 UTC'"}
