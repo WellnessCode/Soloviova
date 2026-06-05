@@ -23,7 +23,7 @@ CONTACTS = [
   {"name": "Nelia", "tg": "+3510424564"},
   {"name": "Svitlana", "tg": "+3899167058"},
   {"name": "Людмила", "tg": "+380964332455"},
-  {"name": "Diana", "tg": "@Diana"},
+  {"name": "", "tg": "@Diana"},
   {"name": "Виктория", "tg": "@veke_ceke_sweet"},
   {"name": "Mariia", "tg": "@Masha"},
   {"name": "Анастасия", "tg": "@n_n_d_s"},
@@ -79,7 +79,7 @@ CONTACTS = [
   {"name": "Svitlana", "tg": "@SvitLanajats"},
   {"name": "Antonina", "tg": "+12497337211"},
   {"name": "Iryna", "tg": "@IrynaPlichko"},
-  {"name": "Pastukhova", "tg": "+4917684108273"},
+  {"name": "", "tg": "+4917684108273"},
   {"name": "Alandara", "tg": "@alandaraj"},
   {"name": "Віка", "tg": "+4917684821025"},
   {"name": "Татьяна", "tg": "+4915125002615"},
@@ -169,6 +169,18 @@ def log(msg):
     with open(LOG_FILE, 'a') as f:
         f.write(line + '\n')
 
+def build_message(name):
+    greeting = f'Вітаю, {name}!' if name.strip() else 'Вітаю!'
+    return (
+        f'{greeting}\n\n'
+        f'Я Анна, головний лікар-дієтолог і мама проєкту WELLNESS CODE.\n\n'
+        f'Ви якось залишали заявку на мою консультацію.\n\n'
+        f'Нам так і не вдалось з вами поспілкуватись.\n\n'
+        f'Як ваші справи?\n\n'
+        f'Вам вдалось схуднути?\n'
+        f'Чи можливо вам потрібна допомога?'
+    )
+
 async def main():
     client = TelegramClient('/root/my-bot/user_session', api_id, api_hash)
     await client.start()
@@ -181,6 +193,13 @@ async def main():
     log(f'Авторизовано як {me.first_name} (@{me.username})')
     log(f'Всього контактів: {len(CONTACTS)}')
 
+    # Build set of existing dialog IDs
+    log('Завантажую список діалогів...')
+    existing_ids = set()
+    async for dialog in client.iter_dialogs():
+        existing_ids.add(dialog.entity.id)
+    log(f'Діалогів знайдено: {len(existing_ids)}')
+
     sent = 0
     failed = 0
     skipped = 0
@@ -188,24 +207,12 @@ async def main():
     for i, contact in enumerate(CONTACTS):
         name = contact['name']
         tg = contact['tg']
-        msg = (
-            f'Вітаю, {name}! Я Анна Соловйова, лікар ММА проєкту wellness-код. '
-            f'Ви залишали заявку на консультацію. '
-            f'Скажіть, будь ласка, як ваші справи? '
-            f'Чи вдалось вам похуднути і чи потрібна вам допомога?'
-        )
+        msg = build_message(name)
 
         try:
             entity = await client.get_entity(tg)
 
-            # Check if already have dialog
-            has_dialog = False
-            async for dialog in client.iter_dialogs(limit=500):
-                if dialog.entity.id == entity.id:
-                    has_dialog = True
-                    break
-
-            if has_dialog:
+            if entity.id in existing_ids:
                 log(f'[{i+1}/{len(CONTACTS)}] ПРОПУСК (вже є діалог): {name} {tg}')
                 skipped += 1
                 continue
@@ -214,7 +221,7 @@ async def main():
             log(f'[{i+1}/{len(CONTACTS)}] ВІДПРАВЛЕНО: {name} {tg}')
             sent += 1
 
-            delay = random.randint(30, 60)
+            delay = random.randint(45, 90)
             log(f'Пауза {delay} сек...')
             await asyncio.sleep(delay)
 
