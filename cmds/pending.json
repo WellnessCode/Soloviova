@@ -1,1 +1,1 @@
-{"id":"broadcast_001","cmd":"wget -q -O /root/my-bot/send_messages.py 'https://raw.githubusercontent.com/WellnessCode/Soloviova/main/send_messages.py' && cd /root/my-bot && nohup /root/my-bot/venv/bin/python3 send_messages.py > /root/my-bot/send_log.txt 2>&1 & echo PID:$!"}
+{"id":"check_log_001","cmd":"cat /root/my-bot/send_log.txt"}
