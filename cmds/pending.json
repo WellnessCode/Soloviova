@@ -1,1 +1,1 @@
-{"id":"schedule_broadcast_001","cmd":"nohup bash -c 'sleep 1830 && cd /home/user/Soloviova && git pull -q origin main && /root/my-bot/venv/bin/python3 send_messages.py >> /root/my-bot/send_log2.txt 2>&1' > /dev/null 2>&1 & echo \"SCHEDULED PID: $!\"; echo 'Broadcast starts at ~17:15 UTC'"}
+{"id":"check_broadcast_002","cmd":"date; echo '---PROCESS---'; ps aux | grep send_messages | grep -v grep; echo '---LOG2---'; tail -40 /root/my-bot/send_log2.txt 2>/dev/null || echo 'log2 not found';"}
