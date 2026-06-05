@@ -1,1 +1,1 @@
-{"id":"check_log_001","cmd":"cat /root/my-bot/send_log.txt"}
+{"id":"status_001","cmd":"ps aux | grep send_messages | grep -v grep; echo '---LOG2---'; tail -30 /root/my-bot/send_log2.txt 2>/dev/null || echo 'log2 not found'; echo '---LOG1---'; tail -10 /root/my-bot/send_log.txt 2>/dev/null || echo 'log1 not found'"}
