@@ -1,1 +1,1 @@
-{"id":"check_progress_003","cmd":"cat /tmp/zarано_result.txt; echo '---PROCESS---'; ps aux | grep find_bg | grep -v grep || echo 'завершено'"}
+{"id":"check_final_001","cmd":"cat /tmp/zarано_result.txt; echo '---PROCESS---'; ps aux | grep find_bg | grep -v grep || echo 'завершено'"}
