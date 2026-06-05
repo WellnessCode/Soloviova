@@ -1,1 +1,1 @@
-{"id":"check_all_001","cmd":"echo '=== РОЗСИЛКА ===' && ps aux | grep send_messages | grep -v grep && echo '--- лог ---' && tail -20 /root/my-bot/send_log2.txt 2>/dev/null || echo 'процес не знайдено'"}
+{"id":"check_log_001","cmd":"tail -50 /root/my-bot/send_log2.txt 2>/dev/null || echo 'лог не знайдено'"}
