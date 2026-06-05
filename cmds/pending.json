@@ -1,1 +1,1 @@
-{"id":"check_broadcast_002","cmd":"date; echo '---PROCESS---'; ps aux | grep send_messages | grep -v grep; echo '---LOG2---'; tail -40 /root/my-bot/send_log2.txt 2>/dev/null || echo 'log2 not found';"}
+{"id":"fix_broadcast_001","cmd":"date; which python3; ls /root/my-bot/venv/bin/python3 2>/dev/null || echo 'venv python not found'; ps aux | grep 1331248 | grep -v grep; echo '---START---'; cd /home/user/Soloviova && git pull -q origin main 2>/dev/null; nohup python3 send_messages.py > /root/my-bot/send_log2.txt 2>&1 & echo \"BROADCAST PID: $!\""}
