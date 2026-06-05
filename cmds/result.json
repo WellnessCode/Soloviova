@@ -1,1 +1,1 @@
-{"id": "clone_and_run_001", "result": "BROADCAST PID: 1333686\n"}
+{"id": "check_log2_001", "result": "Traceback (most recent call last):\n  File \"/root/soloviova/send_messages.py\", line 5, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n"}
