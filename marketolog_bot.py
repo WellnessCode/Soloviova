@@ -61,7 +61,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_histories[user_id] = user_histories[user_id][-40:]
 
     response = client.messages.create(
-        model="claude-opus-4-8",
+        model="claude-sonnet-5",
         max_tokens=2000,
         system=SYSTEM_PROMPT,
         messages=user_histories[user_id]
