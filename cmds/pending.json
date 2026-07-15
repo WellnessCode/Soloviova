@@ -1,1 +1,1 @@
-{"id":"check-mia-bot-1","cmd":"grep -i mia /root/my-bot/.env 2>/dev/null; ls /root/my-bot/ | grep -i mia; systemctl list-units --type=service --all | grep -i mia"}
+{"id":"find-mia-2","cmd":"cat /root/my-bot/.env 2>/dev/null | grep -iE 'mia|token' ; echo '---FILES---'; find /root -maxdepth 4 -iname '*mia*' 2>/dev/null; echo '---SERVICES---'; systemctl list-units --all --type=service --no-pager | grep -iE 'mia|assistant|bot'"}
