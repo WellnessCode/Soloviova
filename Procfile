@@ -1,1 +1,1 @@
-worker: python marketolog_bot.py
+worker: python time_manager_bot.py
