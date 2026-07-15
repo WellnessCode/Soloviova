@@ -1,0 +1,8 @@
+python-dotenv
+anthropic
+python-telegram-bot
+telethon
+requests
+google-auth
+google-auth-oauthlib
+google-api-python-client
