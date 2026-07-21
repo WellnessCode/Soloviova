@@ -1,0 +1,362 @@
+<title>Wellness-Код — огляд проєкту Soloviova</title>
+<style>
+  :root {
+    --bg: #F6F8F5;
+    --surface: #FDFEFC;
+    --ink: #1E2721;
+    --ink-soft: #55635A;
+    --line: #DCE4DC;
+    --accent: #2E7B58;
+    --accent-ink: #226349;
+    --accent-soft: #E6F0E9;
+    --warn: #C07A45;
+    --warn-soft: #F7EDE4;
+    --danger: #B04A3E;
+    --danger-soft: #F6E8E5;
+    --mono-bg: #EDF2ED;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131A15;
+      --surface: #1A231D;
+      --ink: #E4EAE4;
+      --ink-soft: #9DABA0;
+      --line: #2C382F;
+      --accent: #5BB98C;
+      --accent-ink: #7CCBA2;
+      --accent-soft: #1F3328;
+      --warn: #D69763;
+      --warn-soft: #33261A;
+      --danger: #D07A6D;
+      --danger-soft: #35211E;
+      --mono-bg: #222D25;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131A15;
+    --surface: #1A231D;
+    --ink: #E4EAE4;
+    --ink-soft: #9DABA0;
+    --line: #2C382F;
+    --accent: #5BB98C;
+    --accent-ink: #7CCBA2;
+    --accent-soft: #1F3328;
+    --warn: #D69763;
+    --warn-soft: #33261A;
+    --danger: #D07A6D;
+    --danger-soft: #35211E;
+    --mono-bg: #222D25;
+  }
+  :root[data-theme="light"] {
+    --bg: #F6F8F5;
+    --surface: #FDFEFC;
+    --ink: #1E2721;
+    --ink-soft: #55635A;
+    --line: #DCE4DC;
+    --accent: #2E7B58;
+    --accent-ink: #226349;
+    --accent-soft: #E6F0E9;
+    --warn: #C07A45;
+    --warn-soft: #F7EDE4;
+    --danger: #B04A3E;
+    --danger-soft: #F6E8E5;
+    --mono-bg: #EDF2ED;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  h1, h2, h3 {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0;
+  }
+  code, .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, Menlo, monospace;
+    font-size: 0.86em;
+  }
+  code {
+    background: var(--mono-bg);
+    border-radius: 4px;
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+  p { margin: 0; }
+  a { color: var(--accent-ink); }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+  header { display: flex; flex-direction: column; gap: 14px; }
+  header h1 { font-size: 40px; font-weight: 600; }
+  header .lede { color: var(--ink-soft); max-width: 62ch; font-size: 17px; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .fact { background: var(--surface); padding: 14px 18px; }
+  .fact .k {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 2px;
+  }
+  .fact .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  section { display: flex; flex-direction: column; gap: 18px; }
+  section > h2 {
+    font-size: 26px; font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .map { display: flex; flex-direction: column; gap: 10px; }
+  .map-row { display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; }
+  .node {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 12px 16px;
+    flex: 1 1 180px;
+    min-width: 0;
+  }
+  .node .t { font-weight: 600; }
+  .node .d { font-size: 13.5px; color: var(--ink-soft); }
+  .node.core { border-left: 3px solid var(--accent); }
+  .arrow {
+    align-self: center;
+    color: var(--accent-ink);
+    padding: 0 12px;
+    font-size: 18px;
+    flex: 0 0 auto;
+  }
+  .map-caption { font-size: 13.5px; color: var(--ink-soft); }
+
+  .script { border: 1px solid var(--line); background: var(--surface); }
+  .script-head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 18px 22px 0;
+  }
+  .script-head h3 { font-size: 21px; font-weight: 600; }
+  .pill {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 700; padding: 3px 10px; border-radius: 99px;
+  }
+  .pill.ok { background: var(--accent-soft); color: var(--accent-ink); }
+  .pill.warn { background: var(--warn-soft); color: var(--warn); }
+  .script-body { padding: 12px 22px 20px; display: flex; flex-direction: column; gap: 14px; }
+  .script-body > p { max-width: 68ch; }
+
+  .meta { overflow-x: auto; }
+  .meta table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  .meta th {
+    text-align: left; vertical-align: top;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 600;
+    padding: 7px 18px 7px 0; width: 160px; white-space: nowrap;
+  }
+  .meta td { padding: 7px 0; vertical-align: top; }
+  .meta tr + tr th, .meta tr + tr td { border-top: 1px solid var(--line); }
+
+  ul.plain { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+  ul.plain li { max-width: 68ch; }
+
+  .risk {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--warn);
+    background: var(--surface);
+    padding: 14px 18px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .risk.high { border-left-color: var(--danger); }
+  .risk .t { font-weight: 600; }
+  .risk .t .sev {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 700; margin-left: 8px;
+    color: var(--warn);
+  }
+  .risk.high .t .sev { color: var(--danger); }
+  .risk p { font-size: 14.5px; color: var(--ink-soft); max-width: 70ch; }
+  .risks { display: flex; flex-direction: column; gap: 12px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 31px; }
+    .arrow { transform: rotate(90deg); padding: 4px 0; align-self: center; margin: 0 auto; }
+    .map-row { flex-direction: column; }
+  }
+</style>
+
+<div class="page">
+  <header>
+    <p class="eyebrow">Wellness-Код · репозиторій Soloviova</p>
+    <h1>Огляд інструментів автоматизації</h1>
+    <p class="lede">
+      Репозиторій <code>WellnessCode/Soloviova</code> — набір Python-скриптів для маркетингу
+      та керування проєктом Анни Соловйової, лікаря-дієтолога (проєкт Wellness-Код):
+      AI-консультант з просування в Instagram, розсилка повідомлень лідам у Telegram
+      і канал віддаленого виконання команд на сервері.
+    </p>
+  </header>
+
+  <div class="facts">
+    <div class="fact"><div class="k">Компонентів</div><div class="v">3 скрипти</div></div>
+    <div class="fact"><div class="k">Мова</div><div class="v">Python 3</div></div>
+    <div class="fact"><div class="k">Платформи</div><div class="v">Telegram · Claude API · GitHub</div></div>
+    <div class="fact"><div class="k">Мова інтерфейсу</div><div class="v">Українська</div></div>
+  </div>
+
+  <section>
+    <h2>Як усе пов’язано</h2>
+    <div class="map">
+      <div class="map-row">
+        <div class="node"><div class="t">Користувач у Telegram</div><div class="d">пише боту-маркетологу</div></div>
+        <div class="arrow">→</div>
+        <div class="node core"><div class="t">marketolog_bot.py</div><div class="d">веде діалог, тримає історію</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="t">Claude API</div><div class="d">генерує поради зі стратегії</div></div>
+      </div>
+      <div class="map-row">
+        <div class="node"><div class="t">Список лідів</div><div class="d">люди, що лишали заявку на консультацію</div></div>
+        <div class="arrow">→</div>
+        <div class="node core"><div class="t">send_messages.py</div><div class="d">надсилає особисті повідомлення</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="t">Telegram (Telethon)</div><div class="d">від імені акаунта Анни</div></div>
+      </div>
+      <div class="map-row">
+        <div class="node"><div class="t">cmds/pending.json</div><div class="d">команда, закомічена в репозиторій</div></div>
+        <div class="arrow">→</div>
+        <div class="node core"><div class="t">cmd_runner_soloviova.py</div><div class="d">виконує команду на сервері</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="t">cmds/result.json</div><div class="d">результат повертається комітом</div></div>
+      </div>
+    </div>
+    <p class="map-caption">Три незалежні контури: консультації, розсилка, віддалене керування. Спільного стану між ними немає — лише спільний репозиторій.</p>
+  </section>
+
+  <section>
+    <h2>Компоненти</h2>
+
+    <div class="script">
+      <div class="script-head">
+        <h3>AI-маркетолог</h3>
+        <span class="pill ok">Бот</span>
+      </div>
+      <div class="script-body">
+        <p>
+          Telegram-бот, що працює як особистий консультант з Instagram-просування та
+          персонального бренду лікаря. Спілкується українською чи російською — мовою
+          співрозмовника, збирає контекст питаннями по одному й видає конкретні
+          рекомендації: контент-план, оформлення профілю, рілси, залучення, монетизація.
+        </p>
+        <div class="meta"><table>
+          <tr><th>Файл</th><td><span class="mono">marketolog_bot.py</span></td></tr>
+          <tr><th>Стек</th><td>python-telegram-bot · anthropic SDK (модель <code>claude-opus-4-7</code>)</td></tr>
+          <tr><th>Команди</th><td><code>/start</code> — почати розмову, <code>/reset</code> — скинути історію</td></tr>
+          <tr><th>Памʼять</th><td>останні 40 реплік на користувача, в оперативній памʼяті (зникає при рестарті)</td></tr>
+          <tr><th>Середовище</th><td><code>MARKETOLOG_BOT_TOKEN</code> · <code>ANTHROPIC_API_KEY</code></td></tr>
+        </table></div>
+      </div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <h3>Розсилка лідам</h3>
+        <span class="pill warn">Разовий запуск</span>
+      </div>
+      <div class="script-body">
+        <p>
+          Скрипт повторного контакту: від імені особистого акаунта надсилає повідомлення
+          людям, які колись лишали заявку на консультацію, але з якими не вдалося
+          поспілкуватись. Працює обережно, щоб не потрапити під обмеження Telegram.
+        </p>
+        <div class="meta"><table>
+          <tr><th>Файл</th><td><span class="mono">send_messages.py</span></td></tr>
+          <tr><th>Стек</th><td>Telethon (авторизація як користувач, не бот)</td></tr>
+          <tr><th>Захист від бану</th><td>пауза 60–120 с між повідомленнями, обробка <span class="mono">FloodWait</span>, повна зупинка при <span class="mono">PeerFlood</span></td></tr>
+          <tr><th>Дедуплікація</th><td>пропускає адресатів, з якими вже є діалог</td></tr>
+          <tr><th>Журнал</th><td><span class="mono">/root/my-bot/send_log2.txt</span> — відправлено / пропущено / помилки</td></tr>
+          <tr><th>Середовище</th><td><code>TELEGRAM_API_ID</code> · <code>TELEGRAM_API_HASH</code> · сесія <span class="mono">user_session</span></td></tr>
+        </table></div>
+      </div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <h3>Виконавець команд</h3>
+        <span class="pill ok">Демон на сервері</span>
+      </div>
+      <div class="script-body">
+        <p>
+          Канал керування сервером через GitHub: кожні 5 секунд перевіряє
+          <span class="mono">cmds/pending.json</span> у репозиторії, виконує нову shell-команду
+          (таймаут 120 с) і комітить результат у <span class="mono">cmds/result.json</span>.
+          Дозволяє адмініструвати сервер без прямого SSH-доступу.
+        </p>
+        <div class="meta"><table>
+          <tr><th>Файл</th><td><span class="mono">cmd_runner_soloviova.py</span></td></tr>
+          <tr><th>Стек</th><td>requests · GitHub Contents API · subprocess</td></tr>
+          <tr><th>Протокол</th><td>нова команда = новий <span class="mono">id</span> у <span class="mono">pending.json</span>; відповідь обрізається до 3000 символів</td></tr>
+          <tr><th>Середовище</th><td><code>GITHUB_TOKEN</code></td></tr>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Нотатки й ризики</h2>
+    <div class="risks">
+      <div class="risk high">
+        <div class="t">Виконавець команд — це повний доступ до сервера<span class="sev">Критично</span></div>
+        <p>
+          Будь-хто з правом запису в репозиторій може закомітити довільну команду в
+          <span class="mono">cmds/pending.json</span>, і сервер її виконає. Доступ до репозиторію
+          варто тримати мінімальним, а токен — з найвужчими правами.
+        </p>
+      </div>
+      <div class="risk high">
+        <div class="t">Персональні дані лідів зашиті в код<span class="sev">Критично</span></div>
+        <p>
+          Список імен і Telegram-нікнеймів зберігається прямо в <span class="mono">send_messages.py</span>
+          і потрапляє в історію git. Краще винести його в окремий файл поза репозиторієм
+          (як уже зроблено з токенами через <span class="mono">.env</span>).
+        </p>
+      </div>
+      <div class="risk">
+        <div class="t">Історія діалогів бота не переживає рестарт<span class="sev">Помірно</span></div>
+        <p>
+          Памʼять AI-маркетолога живе лише в процесі: після перезапуску бот забуває всі
+          розмови. Якщо це заважає — додати збереження історії на диск або в базу.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Станом на 21.07.2026 · гілка <span class="mono">claude/web-page-artifact-rd6390</span> · зведено автоматично з коду репозиторію
+  </footer>
+</div>
